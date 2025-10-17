@@ -1,6 +1,6 @@
 import { useAccount, usePublicClient } from 'wagmi'
 import { useEffect, useState } from 'react'
-import { sdk, isSDKReady } from './metamask'
+import { getSDK, isSDKReady } from './metamask'
 
 export function SmartAccountInfo() {
   const { address, connector, isConnected } = useAccount()
@@ -17,9 +17,9 @@ export function SmartAccountInfo() {
       const ready = isSDKReady()
       setSdkStatus(ready ? 'ready' : 'not-ready')
       if (ready) {
-        console.log('✅ MetaMask SDK initialized successfully', sdk)
+        console.log('✅ MetaMask SDK initialized successfully', getSDK())
       } else {
-        console.log('⏳ MetaMask SDK initializing...', sdk)
+        console.log('⏳ MetaMask SDK initializing...', getSDK())
       }
     }
     
@@ -65,6 +65,7 @@ export function SmartAccountInfo() {
       // const smartAccountAddress = await sdk.createSmartAccount()
       
       // For now, we'll provide instructions and open MetaMask settings
+      const sdk = getSDK()
       const provider = sdk.getProvider()
       
       if (provider) {

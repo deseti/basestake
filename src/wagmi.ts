@@ -1,5 +1,5 @@
 import { http, createConfig } from 'wagmi'
-import { metaMask } from 'wagmi/connectors'
+import { metaMask, injected } from 'wagmi/connectors'
 import { defineChain } from 'viem'
 
 // 1. We define the Monad Testnet chain details using the info you provided
@@ -18,17 +18,17 @@ export const monadTestnet = defineChain({
 
 // 2. We create the configuration object for our app with MetaMask SDK
 // MetaMask SDK is initialized separately in metamask.ts for Smart Account features
-// Using MetaMask connector for Monad x MetaMask hackathon
+// Using both injected (for compatibility) and MetaMask connector
 export const config = createConfig({
   chains: [monadTestnet],
   connectors: [
+    injected({ target: 'metaMask' }), // Primary - use injected MetaMask
     metaMask({
       dappMetadata: {
         name: 'MonoStake',
         url: 'https://monostake.app',
       },
-      extensionOnly: false, // Allow mobile wallets too
-    }),
+    }), // Fallback - MetaMask SDK connector
   ],
   transports: {
     [monadTestnet.id]: http(),
