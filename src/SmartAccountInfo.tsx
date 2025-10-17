@@ -1,10 +1,30 @@
 import { useAccount, usePublicClient } from 'wagmi'
 import { useEffect, useState } from 'react'
+import { sdk, isSDKReady } from './metamask'
 
 export function SmartAccountInfo() {
   const { address, connector, isConnected } = useAccount()
   const publicClient = usePublicClient()
   const [isSmartAccount, setIsSmartAccount] = useState<boolean | null>(null)
+  const [sdkStatus, setSdkStatus] = useState<'checking' | 'ready' | 'not-ready'>('checking')
+
+  useEffect(() => {
+    // Check MetaMask SDK initialization status
+    const checkSDK = () => {
+      const ready = isSDKReady()
+      setSdkStatus(ready ? 'ready' : 'not-ready')
+      if (ready) {
+        console.log('✅ MetaMask SDK initialized successfully', sdk)
+      } else {
+        console.log('⏳ MetaMask SDK initializing...', sdk)
+      }
+    }
+    
+    checkSDK()
+    // Re-check after a short delay
+    const timer = setTimeout(checkSDK, 1000)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const checkSmartAccount = async () => {
@@ -71,6 +91,40 @@ export function SmartAccountInfo() {
           gap: '1rem',
           marginBottom: '1.25rem'
         }}>
+          {/* SDK Status */}
+          <div style={{
+            padding: '1rem',
+            background: sdkStatus === 'ready' 
+              ? 'rgba(16, 185, 129, 0.05)' 
+              : 'rgba(245, 158, 11, 0.05)',
+            borderRadius: '0.75rem',
+            border: `1px solid ${
+              sdkStatus === 'ready' 
+                ? 'rgba(16, 185, 129, 0.2)' 
+                : 'rgba(245, 158, 11, 0.2)'
+            }`
+          }}>
+            <div style={{ 
+              fontSize: '0.875rem',
+              color: '#64748b',
+              marginBottom: '0.25rem',
+              fontWeight: '600'
+            }}>
+              MetaMask SDK Status
+            </div>
+            <div style={{ 
+              fontSize: '1rem',
+              fontWeight: '700',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: sdkStatus === 'ready' ? '#059669' : '#d97706'
+            }}>
+              {sdkStatus === 'ready' ? '✅' : '⏳'}
+              {sdkStatus === 'ready' ? 'SDK Initialized' : 'SDK Initializing...'}
+            </div>
+          </div>
+          
           <div style={{
             padding: '1rem',
             background: 'rgba(99, 102, 241, 0.05)',

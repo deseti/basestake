@@ -17,7 +17,8 @@ export const monadTestnet = defineChain({
 })
 
 // 2. We create the configuration object for our app with MetaMask SDK
-// Using MetaMask only for Monad x MetaMask hackathon
+// MetaMask SDK is initialized separately in metamask.ts for Smart Account features
+// Using MetaMask connector for Monad x MetaMask hackathon
 export const config = createConfig({
   chains: [monadTestnet],
   connectors: [
@@ -26,7 +27,7 @@ export const config = createConfig({
         name: 'MonoStake',
         url: 'https://monostake.app',
       },
-      extensionOnly: true, // Only use browser extension
+      extensionOnly: false, // Allow mobile wallets too
     }),
   ],
   transports: {
