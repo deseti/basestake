@@ -258,9 +258,8 @@ Built with ❤️ for the MetaMask Smart Accounts x Monad Dev Cook-Off
 
 ## 📞 Contact
 
-- GitHub: [Your GitHub Profile]
-- Twitter: [Your Twitter Handle]
-- Discord: [Your Discord Handle]
+- GitHub: [@deseti](https://github.com/deseti)
+- Twitter: [@deseti_nad](https://x.com/deseti_nad)
 
 ---
 
