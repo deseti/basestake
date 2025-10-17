@@ -1,33 +1,13 @@
 import { useAccount, usePublicClient } from 'wagmi'
 import { useEffect, useState } from 'react'
-import { getSDK, isSDKReady } from './metamask'
 
 export function SmartAccountInfo() {
   const { address, connector, isConnected } = useAccount()
   const publicClient = usePublicClient()
   const [isSmartAccount, setIsSmartAccount] = useState<boolean | null>(null)
-  const [sdkStatus, setSdkStatus] = useState<'checking' | 'ready' | 'not-ready'>('checking')
   const [isCreatingAccount, setIsCreatingAccount] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
   const [createSuccess, setCreateSuccess] = useState(false)
-
-  useEffect(() => {
-    // Check MetaMask SDK initialization status
-    const checkSDK = () => {
-      const ready = isSDKReady()
-      setSdkStatus(ready ? 'ready' : 'not-ready')
-      if (ready) {
-        console.log('✅ MetaMask SDK initialized successfully', getSDK())
-      } else {
-        console.log('⏳ MetaMask SDK initializing...', getSDK())
-      }
-    }
-    
-    checkSDK()
-    // Re-check after a short delay
-    const timer = setTimeout(checkSDK, 1000)
-    return () => clearTimeout(timer)
-  }, [])
 
   useEffect(() => {
     const checkSmartAccount = async () => {
@@ -48,52 +28,44 @@ export function SmartAccountInfo() {
 
   // Handler to create Smart Account
   const handleCreateSmartAccount = async () => {
-    if (!address || !sdkStatus) return
+    if (!address) return
     
     setIsCreatingAccount(true)
     setCreateError(null)
     setCreateSuccess(false)
     
     try {
-      console.log('🚀 Starting Smart Account creation process...')
+      console.log('🚀 Guiding user to create Smart Account in MetaMask...')
       
       // MetaMask Smart Accounts are created through the MetaMask UI
-      // We'll guide users to create it in MetaMask Settings
-      // For demo purposes, we'll show the flow and instructions
+      // We guide users to the MetaMask settings to create it
+      // This is the recommended approach as per MetaMask documentation
       
-      // In a production app with full SDK integration, you would call:
-      // const smartAccountAddress = await sdk.createSmartAccount()
+      // Show success message and instructions
+      setCreateSuccess(true)
       
-      // For now, we'll provide instructions and open MetaMask settings
-      const sdk = getSDK()
-      const provider = sdk.getProvider()
-      
-      if (provider) {
-        // Request to switch to or create Smart Account
-        // This will open MetaMask and prompt the user
-        await provider.request({
-          method: 'wallet_requestPermissions',
-          params: [{ eth_accounts: {} }]
-        })
-        
-        console.log('✅ Smart Account creation initiated in MetaMask')
-        setCreateSuccess(true)
-        
-        // Re-check account type after a delay
-        setTimeout(() => {
-          if (publicClient && address) {
-            publicClient.getCode({ address }).then(code => {
-              setIsSmartAccount(code !== undefined && code !== '0x')
-            })
-          }
-        }, 2000)
-      } else {
-        throw new Error('MetaMask provider not available')
+      // Open MetaMask (user will need to manually navigate to Settings)
+      if (window.ethereum) {
+        try {
+          // Request accounts to bring MetaMask to focus
+          await window.ethereum.request({ method: 'eth_requestAccounts' })
+        } catch (err) {
+          console.log('User may need to manually open MetaMask')
+        }
       }
       
+      // Re-check account type after a delay (in case user creates it quickly)
+      setTimeout(() => {
+        if (publicClient && address) {
+          publicClient.getCode({ address }).then(code => {
+            setIsSmartAccount(code !== undefined && code !== '0x')
+          })
+        }
+      }, 3000)
+      
     } catch (error) {
-      console.error('Error creating Smart Account:', error)
-      setCreateError(error instanceof Error ? error.message : 'Failed to create Smart Account')
+      console.error('Error guiding Smart Account creation:', error)
+      setCreateError(error instanceof Error ? error.message : 'Failed to guide Smart Account creation')
     } finally {
       setIsCreatingAccount(false)
     }
@@ -147,40 +119,7 @@ export function SmartAccountInfo() {
           gap: '1rem',
           marginBottom: '1.25rem'
         }}>
-          {/* SDK Status */}
-          <div style={{
-            padding: '1rem',
-            background: sdkStatus === 'ready' 
-              ? 'rgba(16, 185, 129, 0.05)' 
-              : 'rgba(245, 158, 11, 0.05)',
-            borderRadius: '0.75rem',
-            border: `1px solid ${
-              sdkStatus === 'ready' 
-                ? 'rgba(16, 185, 129, 0.2)' 
-                : 'rgba(245, 158, 11, 0.2)'
-            }`
-          }}>
-            <div style={{ 
-              fontSize: '0.875rem',
-              color: '#64748b',
-              marginBottom: '0.25rem',
-              fontWeight: '600'
-            }}>
-              MetaMask SDK Status
-            </div>
-            <div style={{ 
-              fontSize: '1rem',
-              fontWeight: '700',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              color: sdkStatus === 'ready' ? '#059669' : '#d97706'
-            }}>
-              {sdkStatus === 'ready' ? '✅' : '⏳'}
-              {sdkStatus === 'ready' ? 'SDK Initialized' : 'SDK Initializing...'}
-            </div>
-          </div>
-          
+          {/* Connector Info */}
           <div style={{
             padding: '1rem',
             background: 'rgba(99, 102, 241, 0.05)',
@@ -321,7 +260,7 @@ export function SmartAccountInfo() {
                 }}>
                   <span style={{ fontSize: '1.5rem' }}>✅</span>
                   <div>
-                    Smart Account creation process initiated! Check your MetaMask wallet.
+                    MetaMask opened! Please navigate to: <strong>Settings → Accounts → Create Smart Account</strong>
                   </div>
                 </div>
               </div>
@@ -390,17 +329,17 @@ export function SmartAccountInfo() {
               {/* Create Button */}
               <button
                 onClick={handleCreateSmartAccount}
-                disabled={isCreatingAccount || sdkStatus !== 'ready'}
+                disabled={isCreatingAccount}
                 style={{
                   width: '100%',
                   padding: '0.875rem 1.5rem',
-                  background: isCreatingAccount || sdkStatus !== 'ready'
+                  background: isCreatingAccount
                     ? 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)'
                     : 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                   color: 'white',
                   border: 'none',
                   borderRadius: '0.75rem',
-                  cursor: isCreatingAccount || sdkStatus !== 'ready' ? 'not-allowed' : 'pointer',
+                  cursor: isCreatingAccount ? 'not-allowed' : 'pointer',
                   fontWeight: '600',
                   fontSize: '0.95rem',
                   transition: 'all 0.2s',
@@ -409,16 +348,16 @@ export function SmartAccountInfo() {
                   justifyContent: 'center',
                   gap: '0.75rem',
                   boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
-                  opacity: isCreatingAccount || sdkStatus !== 'ready' ? 0.6 : 1
+                  opacity: isCreatingAccount ? 0.6 : 1
                 }}
                 onMouseEnter={(e) => {
-                  if (!isCreatingAccount && sdkStatus === 'ready') {
+                  if (!isCreatingAccount) {
                     e.currentTarget.style.transform = 'translateY(-2px)'
                     e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(99, 102, 241, 0.4)'
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (!isCreatingAccount && sdkStatus === 'ready') {
+                  if (!isCreatingAccount) {
                     e.currentTarget.style.transform = 'translateY(0)'
                     e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(99, 102, 241, 0.3)'
                   }
@@ -434,12 +373,7 @@ export function SmartAccountInfo() {
                       borderRadius: '50%',
                       animation: 'spin 1s linear infinite'
                     }}></div>
-                    Creating Smart Account...
-                  </>
-                ) : sdkStatus !== 'ready' ? (
-                  <>
-                    <span>⏳</span>
-                    Waiting for SDK...
+                    Opening MetaMask...
                   </>
                 ) : (
                   <>
