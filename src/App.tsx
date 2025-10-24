@@ -36,7 +36,7 @@ function App() {
           }}>
             {/* GitHub Link Icon */}
             <a 
-              href="https://github.com/deseti/MonoStake" 
+              href="https://github.com/deseti/BaseStake" 
               target="_blank" 
               rel="noopener noreferrer"
               style={{
@@ -83,14 +83,14 @@ function App() {
               marginBottom: '0.5rem',
               letterSpacing: '-0.02em'
             }}>
-              ⚡ MonoStake
+              ⚡ BaseStake
             </h1>
             <p style={{ 
               color: 'rgba(255, 255, 255, 0.9)', 
               fontSize: '1.15rem',
               fontWeight: '500'
             }}>
-              Stake native MONAD with Smart Accounts on Monad Testnet
+              Stake native ETH with Smart Accounts on Base Sepolia
             </p>
           </div>
           

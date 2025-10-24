@@ -54,13 +54,13 @@ export function Staking() {
             console.log('💰 User will NOT pay gas fees for this transaction')
         }
 
-        // Direct stake with native MONAD - no approval needed!
+        // Direct stake with native ETH - no approval needed!
         // Note: In production with real paymaster integration, 
         // you would modify the transaction to include paymaster data
         stake({
             ...stakingContractConfig,
             functionName: 'stake',
-            value: parsedAmount, // Send MONAD directly as value
+            value: parsedAmount, // Send ETH directly as value
             // In production gasless mode, you would add:
             // paymasterAndData: useGasless ? getPaymasterData() : undefined
         })
@@ -95,7 +95,7 @@ export function Staking() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                 <span style={{ fontSize: '1.75rem' }}>⚡</span>
                 <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700', color: '#1e293b' }}>
-                    Stake Your MONAD
+                    Stake Your ETH
                 </h3>
             </div>
             
@@ -159,7 +159,7 @@ export function Staking() {
                                 color: '#047857',
                                 lineHeight: '1.4'
                             }}>
-                                Your gas fees will be sponsored. You only pay for the staked MONAD!
+                                Your gas fees will be sponsored. You only pay for the staked ETH!
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@ export function Staking() {
                         color: '#64748b',
                         pointerEvents: 'none'
                     }}>
-                        MONAD
+                        ETH
                     </span>
                 </div>
             </div>

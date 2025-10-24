@@ -1,48 +1,40 @@
-# MonoStake - MetaMask Smart Accounts x Monad Hackathon
+﻿# BaseStake - Native ETH Staking on Base Sepolia
 
 <div align="center">
-  <h3>🚀 One-Click Staking on Monad with Smart Account Integration</h3>
-  <p>A next-generation Web3 staking experience powered by MetaMask Smart Accounts and Monad Testnet</p>
+  <h3> One-Click Staking on Base with Smart Account Integration</h3>
+  <p>A next-generation Web3 staking experience powered by MetaMask Smart Accounts and Base Sepolia</p>
 </div>
 
 ---
 
-## 🎯 Hackathon Submission
+##  Overview
 
-**Event:** MetaMask Smart Accounts x Monad Dev Cook-Off  
-**Dates:** Sep 19 - Oct 20, 2025  
-**Theme:** Next-gen Web3 experiences with Smart Accounts and Account Abstraction
+BaseStake is a decentralized staking platform built on Base Sepolia testnet that leverages **MetaMask Smart Accounts** to provide an enhanced user experience for **native ETH staking** through:
 
----
-
-## 📖 Overview
-
-MonoStake is a decentralized staking platform built on Monad Testnet that leverages **MetaMask Smart Accounts** to provide an enhanced user experience for **native MONAD coin staking** through:
-
-- ✅ **Account Abstraction** - Smart Contract Accounts for advanced features
-- ⚡ **Single Transaction Staking** - Stake native MONAD directly (no token approval needed!)
-- 💰 **Gasless Transactions** - Option for sponsored gas fees (Smart Account feature)
-- 🔐 **Enhanced Security** - Smart Account benefits like social recovery
-- 🎨 **Intuitive UI** - Clear visualization of wallet balance, staked balance, and Smart Account status
+-  **Account Abstraction** - Smart Contract Accounts for advanced features
+-  **Single Transaction Staking** - Stake native ETH directly (no token approval needed!)
+-  **Gasless Transactions** - Option for sponsored gas fees (Smart Account feature)
+-  **Enhanced Security** - Smart Account benefits like social recovery
+-  **Intuitive UI** - Clear visualization of wallet balance, staked balance, and Smart Account status
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
-### Smart Contracts (Deployed on Monad Testnet)
-- **Native MONAD Staking Contract:** `0x30f146555cb51c73e137A2d79B66b8875a1b60a1`
-  - Accepts native MONAD directly (no token contract needed)
-  - Functions: `stake()` (payable), `unstake(uint256)`, `stakedBalance(address)`
+### Smart Contracts (Deployed on Base Sepolia)
+- **Native ETH Staking Contract:** `0x90D90EBEadE8AFcB71A06C7209432650ffE36120`
+  - Accepts native ETH directly (no token contract needed)
+  - Functions: stake() (payable), unstake(uint256), stakedBalance(address)
 
 ### Frontend Stack
 - **Framework:** React + TypeScript + Vite
 - **Wallet Integration:** Wagmi v2 + MetaMask SDK
-- **Blockchain:** Monad Testnet (Chain ID: 10143)
+- **Blockchain:** Base Sepolia (Chain ID: 84532)
 - **Account Abstraction:** MetaMask Smart Accounts
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### 1. MetaMask Smart Account Integration
 - Automatic detection of Smart Account vs Regular EOA
@@ -51,7 +43,7 @@ MonoStake is a decentralized staking platform built on Monad Testnet that levera
 
 ### 2. Account Abstraction Benefits
 - **Gasless Mode:** Toggle to enable sponsored transactions
-- **Single Transaction:** No token approval needed - stake native MONAD directly
+- **Single Transaction:** No token approval needed - stake native ETH directly
 - **Session Keys:** Potential for automated staking (future feature)
 - **Social Recovery:** Enhanced account security through Smart Accounts
 
@@ -64,19 +56,19 @@ MonoStake is a decentralized staking platform built on Monad Testnet that levera
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js v18+
 - MetaMask browser extension
-- Access to Monad Testnet
+- Access to Base Sepolia testnet
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/MonoStake-Frontend.git
-cd MonoStake-Frontend
+git clone https://github.com/deseti/basestake.git
+cd basestake
 
 # Install dependencies
 npm install
@@ -85,44 +77,50 @@ npm install
 npm run dev
 ```
 
-### Configure MetaMask for Monad Testnet
+### Configure MetaMask for Base Sepolia
 
-Add Monad Testnet to MetaMask:
-- **Network Name:** Monad Testnet
-- **RPC URL:** https://testnet-rpc.monad.xyz
-- **Chain ID:** 10143
-- **Currency Symbol:** MONAD
-- **Block Explorer:** https://testnet.monadexplorer.com
+Add Base Sepolia to MetaMask:
+- **Network Name:** Base Sepolia
+- **RPC URL:** https://sepolia.base.org
+- **Chain ID:** 84532
+- **Currency Symbol:** ETH
+- **Block Explorer:** https://sepolia.basescan.org
+
+### Get Test ETH
+
+Get Base Sepolia ETH from:
+- [Base Sepolia Faucet](https://www.coinbase.com/faucets/base-ethereum-goerli-faucet)
+- [Alchemy Base Sepolia Faucet](https://sepoliafaucet.com/)
 
 ### Optional: Create a Smart Account
 
 1. Open MetaMask
-2. Go to Settings → Accounts
+2. Go to Settings  Accounts
 3. Click "Create Smart Account"
 4. Follow the setup wizard
 
 ---
 
-## 💡 How It Works
+##  How It Works
 
-### Native MONAD Staking Flow (1 Transaction!)
-1. **Stake:** Send native MONAD directly to the staking contract
+### Native ETH Staking Flow (1 Transaction!)
+1. **Stake:** Send native ETH directly to the staking contract
    - No token approval needed
    - Single transaction
    - Instant confirmation
 
-2. **Unstake:** Withdraw your staked MONAD back to wallet
+2. **Unstake:** Withdraw your staked ETH back to wallet
    - Specify amount to unstake
-   - MONAD returns immediately to your wallet
+   - ETH returns immediately to your wallet
 
 ### Smart Account Flow (Enhanced)
 1. **Gasless Mode:** App sponsors gas fees for better UX
 2. **Instant Feedback:** Real-time updates across all components
-3. **Seamless Experience:** Native coin staking just like sending a transfer
+3. **Seamless Experience:** Native ETH staking just like sending a transfer
 
 ---
 
-## 🎨 UI Components
+##  UI Components
 
 ### SmartAccountInfo Component
 - Detects if connected account is a Smart Account
@@ -130,30 +128,30 @@ Add Monad Testnet to MetaMask:
 - Provides educational content about AA features
 
 ### Staking Component
-- Input field for staking amount (in MONAD)
-- Single-click native MONAD staking
+- Input field for staking amount (in ETH)
+- Single-click native ETH staking
 - Toggle for gasless mode
 - Visual feedback during transaction processing
 
 ### Unstaking Component
 - Input field for unstaking amount
-- Withdraw staked MONAD back to wallet
+- Withdraw staked ETH back to wallet
 - Instant withdrawal confirmation
 
 ### Balance Components
-- Native MONAD wallet balance display
+- Native ETH wallet balance display
 - Staked balance display
 - Both update automatically after transactions
 
 ---
 
-## 🔧 Technical Implementation
+##  Technical Implementation
 
 ### MetaMask SDK Configuration
 ```typescript
 metaMask({
   dappMetadata: {
-    name: 'MonoStake',
+    name: 'BaseStake',
     url: window.location.href,
   },
   enableAnalytics: true,
@@ -169,20 +167,20 @@ const isSmartAccount = code !== '0x'
 
 ### Transaction Handling with useEffect
 - Monitors transaction confirmations
-- Triggers subsequent actions (approve → stake)
+- Triggers subsequent actions (approve  stake)
 - Updates UI state and balances
 
 ---
 
-## 🎓 What We Learned
+##  What We Learned
 
 ### About Account Abstraction
 - Smart Accounts enable gasless transactions through paymasters
 - Batch operations reduce user friction significantly
 - Contract accounts provide enhanced security features
 
-### About Monad
-- High-performance blockchain with fast finality
+### About Base
+- High-performance Layer 2 blockchain with low fees
 - Compatible with Ethereum tooling (wagmi, viem)
 - Great developer experience with familiar APIs
 
@@ -193,70 +191,70 @@ const isSmartAccount = code !== '0x'
 
 ---
 
-## 🚧 Future Enhancements
+##  Future Enhancements
 
 - [ ] Implement actual paymaster integration for gasless transactions
 - [ ] Add session keys for auto-staking features
 - [ ] Implement social recovery setup UI
-- [ ] Add unstaking functionality
 - [ ] Display staking rewards/APY
-- [ ] Multi-chain support
+- [ ] Multi-chain support (Base Mainnet)
 - [ ] Enhanced analytics dashboard
+- [ ] Staking duration and rewards system
 
 ---
 
-## 🏆 Why This Project Fits the Hackathon
+##  Tech Stack
 
-### ✅ Built on Monad
-- Deployed and tested on Monad Testnet
-- Leverages Monad's high performance
+###  Built on Base Sepolia
+- Deployed and tested on Base Sepolia testnet
+- Leverages Base's low gas fees and fast finality
 - All transactions happen on-chain
 
-### ✅ Uses MetaMask Smart Accounts
+###  Uses MetaMask Smart Accounts
 - Integrates MetaMask SDK with Smart Account support
 - Detects and displays Smart Account status
-- Implements AA-specific features (batch, gasless)
+- Implements AA-specific features (gasless mode)
 
-### ✅ Focus on Account Abstraction
+###  Focus on Account Abstraction
 - Educational tooltips about AA benefits
 - Practical implementation of gasless transactions
-- Batch operations for better UX
+- Single-transaction staking for better UX
 
-### ✅ User Experience Innovation
+###  User Experience Innovation
 - Intuitive interface for complex blockchain operations
 - Clear visual feedback and status indicators
 - Progressive enhancement based on account type
 
 ---
 
-## 📚 Resources
+##  Resources
 
 - [MetaMask Smart Accounts Documentation](https://support.metamask.io/configure/accounts/what-is-a-smart-account/)
-- [Monad Documentation](https://docs.monad.xyz)
+- [Base Documentation](https://docs.base.org)
 - [Wagmi Documentation](https://wagmi.sh)
 - [Account Abstraction (ERC-4337)](https://eips.ethereum.org/EIPS/eip-4337)
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
+##  License
 
 MIT License - feel free to use this project for learning and building!
 
 ---
 
-## 👥 Team
+##  Team
 
-Built with ❤️ for the MetaMask Smart Accounts x Monad Dev Cook-Off
+Built with  for the blockchain community
 
 ---
 
-## 📞 Contact
+##  Contact
 
 - GitHub: [@deseti](https://github.com/deseti)
 - Twitter: [@deseti_nad](https://x.com/deseti_nad)
@@ -264,6 +262,6 @@ Built with ❤️ for the MetaMask Smart Accounts x Monad Dev Cook-Off
 ---
 
 <div align="center">
-  <p>Made for MetaMask Smart Accounts x Monad Dev Cook-Off 2025</p>
-  <p>🏆 Building the future of Web3 UX with Account Abstraction</p>
+  <p>Building the future of Web3 UX with Account Abstraction on Base</p>
+  <p> Stake ETH   Smart Accounts   Gasless Transactions</p>
 </div>

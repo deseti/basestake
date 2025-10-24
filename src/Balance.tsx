@@ -102,7 +102,7 @@ export function Balance() {
                 margin: 0,
                 fontWeight: '600'
               }}>
-                MONAD
+                ETH
               </p>
               <span style={{
                 padding: '0.25rem 0.75rem',

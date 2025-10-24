@@ -55,7 +55,7 @@ export function Unstaking() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                 <span style={{ fontSize: '1.75rem' }}>💸</span>
                 <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700', color: '#1e293b' }}>
-                    Unstake Your MONAD
+                    Unstake Your ETH
                 </h3>
             </div>
             
@@ -78,7 +78,7 @@ export function Unstaking() {
                     fontWeight: '500',
                     lineHeight: '1.5'
                 }}>
-                    Enter the amount of MONAD you want to withdraw from staking. Your tokens will be returned to your wallet immediately.
+                    Enter the amount of ETH you want to withdraw from staking. Your tokens will be returned to your wallet immediately.
                 </p>
             </div>
 
@@ -131,7 +131,7 @@ export function Unstaking() {
                         color: '#64748b',
                         pointerEvents: 'none'
                     }}>
-                        MONAD
+                        ETH
                     </span>
                 </div>
             </div>
@@ -209,7 +209,7 @@ export function Unstaking() {
                     animation: 'slideIn 0.3s ease-out'
                 }}>
                     <span style={{ fontSize: '1.5rem' }}>✅</span>
-                    <span>Unstake successful! MONAD returned to your wallet.</span>
+                    <span>Unstake successful! ETH returned to your wallet.</span>
                 </div>
             )}
         </div>

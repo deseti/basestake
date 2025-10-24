@@ -10,8 +10,8 @@ export const initializeSDK = () => {
   
   sdkInstance = new MetaMaskSDK({
     dappMetadata: {
-      name: 'MonoStake',
-      url: typeof window !== 'undefined' ? window.location.origin : 'https://monostake.app',
+      name: 'BaseStake',
+      url: typeof window !== 'undefined' ? window.location.origin : 'https://basestake.app',
     },
     // Enable logging for debugging (can be disabled in production)
     logging: {

@@ -1,9 +1,9 @@
-// The new address of our StakingContract on Monad Testnet
-const STAKING_CONTRACT_ADDRESS = '0x30f146555cb51c73e137A2d79B66b8875a1b60a1'
+// The address of our StakingContract on Base Sepolia
+const STAKING_CONTRACT_ADDRESS = '0x90D90EBEadE8AFcB71A06C7209432650ffE36120'
 
-// The new, simpler ABI for our StakingContract
+// The ABI for our StakingContract
 export const stakingContractAbi = [
-  // Function to stake a certain amount of native MONAD
+  // Function to stake a certain amount of native ETH
   // Note: It's 'payable', which is important for sending native currency.
   { type: 'function', name: 'stake', inputs: [], outputs: [], stateMutability: 'payable' },
   
